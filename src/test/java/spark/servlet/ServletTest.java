@@ -5,7 +5,7 @@ import junit.framework.Assert;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -33,11 +33,10 @@ public class ServletTest {
     public static void setup() {
         testUtil = new SparkTestUtil(PORT);
 
-        final Server server = new Server();
-        ServerConnector connector = new ServerConnector(server);
+        SocketConnector connector = new SocketConnector();
+		connector.setServer(new Server());
 
-        // Set some timeout options to make debugging easier.
-        connector.setIdleTimeout(1000 * 60 * 60);
+        // Set some timeout options to make debugging easier
         connector.setSoLingerTime(-1);
         connector.setPort(PORT);
         server.setConnectors(new Connector[]{connector});
