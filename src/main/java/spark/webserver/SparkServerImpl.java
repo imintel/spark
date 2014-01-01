@@ -85,29 +85,33 @@ class SparkServerImpl implements SparkServer {
 		}
 
 		try {
-			System.out.println("== " + NAME + " has ignited ..."); // NOSONAR
-			System.out.println(">> Listening on " + host + ":" + port); // NOSONAR
+			// System.out.println("== " + NAME + " has ignited ..."); // NOSONAR
+			// System.out.println(">> Listening on " + host + ":" + port); //
+			// NOSONAR
 
 			server.start();
 			server.join();
-		} catch (Exception e) {
+		} catch (Error e) {
 			e.printStackTrace(); // NOSONAR
-			System.exit(100); // NOSONAR
+			stop();
+			// System.exit(100); // NOSONAR
+		} catch (Exception e) {
+			stop();
 		}
 	}
 
 	@Override
 	public void stop() {
-		System.out.print(">>> " + NAME + " shutting down..."); // NOSONAR
+//		System.out.print(">>> " + NAME + " shutting down..."); // NOSONAR
 		try {
 			if (server != null) {
 				server.stop();
 			}
 		} catch (Exception e) {
 			e.printStackTrace(); // NOSONAR
-			System.exit(100); // NOSONAR
+//			System.exit(100); // NOSONAR
 		}
-		System.out.println("done"); // NOSONAR
+//		System.out.println("done"); // NOSONAR
 	}
 
 	/**
